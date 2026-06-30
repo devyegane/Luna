@@ -15,13 +15,13 @@
 
 <div id="app">
 
+
 <section id="boot" class="screen active">
 
 <h1>A.S.T.R.A</h1>
 
 <h3>
-Artificial Synaptic Tracking &
-Reconstruction Assistant
+Artificial Synaptic Tracking & Reconstruction Assistant
 </h3>
 
 <div id="bootText"></div>
@@ -37,6 +37,7 @@ INITIALIZE SYSTEM
 </section>
 
 
+
 <section id="scan" class="screen">
 
 <h2>System Scan</h2>
@@ -50,6 +51,7 @@ Continue
 </section>
 
 
+
 <section id="archive" class="screen">
 
 <h2>Unknown Archive</h2>
@@ -57,10 +59,11 @@ Continue
 <div id="archiveText"></div>
 
 <button class="next">
-Recover Archive
+Continue
 </button>
 
 </section>
+
 
 
 <section id="files" class="screen">
@@ -71,24 +74,30 @@ Recover Archive
 <div class="folder">📁 Memory_02</div>
 <div class="folder">📁 Memory_03</div>
 <div class="folder">📁 Memory_04</div>
-<div class="folder">📁 Locked_File</div>
-<div class="folder" onclick="openLore()">📄 LORE.txt</div>
+<div class="folder">🔒 Locked_File</div>
+
+<div class="folder" onclick="openLore()">
+📄 LORE.txt
+</div>
+
 </section>
+
+
 
 
 <section id="decrypt" class="screen">
 
-<h2>Decrypt File</h2>
+<h2>Access Required</h2>
 
-<p>Enter Access Key</p>
-
-<input id="code" placeholder="ACCESS KEY">
+<input id="code" placeholder="ENTER KEY">
 
 <button id="unlock">
 Unlock
 </button>
 
 </section>
+
+
 
 
 <section id="ai" class="screen">
@@ -102,6 +111,8 @@ Continue
 </button>
 
 </section>
+
+
 
 
 <section id="final" class="screen">
@@ -119,7 +130,19 @@ MISSION COMPLETE
 </section>
 
 
+
 </div>
+
+
+
+<!-- SOUND -->
+
+<audio id="bgSound" loop>
+
+<source src="sound.mp3" type="audio/mp3">
+
+</audio>
+
 
 
 <script src="script.js"></script>
