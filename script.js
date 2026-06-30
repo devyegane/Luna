@@ -1,89 +1,129 @@
+const screens = document.querySelectorAll(".screen");
+
 const bootBtn = document.getElementById("bootBtn");
 const progress = document.getElementById("progress");
 const bgSound = document.getElementById("bgSound");
 
-const screens = document.querySelectorAll(".screen");
+function showScreen(id){
+    screens.forEach(screen=>{
+        screen.classList.remove("active");
+    });
 
-function show(id){
-    screens.forEach(s => s.classList.remove("active"));
     document.getElementById(id).classList.add("active");
 }
 
-function type(el,text){
-    el.innerHTML="";
-    let i=0;
 
-    let timer=setInterval(()=>{
-        el.innerHTML += text.charAt(i);
+function typeWriter(element, text, speed = 35){
+
+    element.innerHTML = "";
+
+    let i = 0;
+
+    let timer = setInterval(()=>{
+
+        element.innerHTML += text.charAt(i);
+
         i++;
 
         if(i >= text.length){
             clearInterval(timer);
         }
 
-    },30);
+    }, speed);
 }
+
 
 
 /* BOOT */
 
-bootBtn.onclick = ()=>{
+bootBtn.addEventListener("click", ()=>{
+
 
     if(bgSound){
         bgSound.volume = 0.3;
         bgSound.play().catch(()=>{});
     }
 
+
     bootBtn.style.display="none";
 
-    let p=0;
 
-    let load=setInterval(()=>{
+    let value = 0;
 
-        p++;
-        progress.style.width=p+"%";
 
-        if(p>=100){
+    let loading = setInterval(()=>{
 
-            clearInterval(load);
+        value++;
 
-            show("scan");
+        progress.style.width = value + "%";
 
-            type(
+
+        if(value >= 100){
+
+            clearInterval(loading);
+
+
+            showScreen("scan");
+
+
+            typeWriter(
             document.getElementById("scanText"),
-            "Signal unstable...\n\nInterference detected...\n\nRecalibrating system..."
+            `Signal unstable...
+
+Interference detected...
+
+Recalibrating system...`
             );
 
         }
 
-    },30);
 
-};
-
+    },40);
 
 
-/* SCAN → ARCHIVE */
-
-document.querySelector("#scan .next").onclick = ()=>{
-
-    show("archive");
-
-    type(
-    document.getElementById("archiveText"),
-    "Scanning...\n\nUnknown archive detected...\n\nRecovering data..."
-    );
-
-};
+});
 
 
 
-/* ARCHIVE → FILES */
 
-document.querySelector("#archive .next").onclick = ()=>{
+/* SCAN */
 
-    show("files");
+document
+.querySelector("#scan .next")
+.addEventListener("click",()=>{
 
-};
+
+showScreen("archive");
+
+
+typeWriter(
+document.getElementById("archiveText"),
+`Scanning...
+
+Unknown archive detected...
+
+Recovering data...`
+);
+
+
+});
+
+
+
+
+/* ARCHIVE */
+
+document
+.querySelector("#archive .next")
+.addEventListener("click",()=>{
+
+
+showScreen("files");
+
+
+});
+
+
 
 
 
@@ -113,66 +153,106 @@ alert("Memory_04\n\nEmotional data cannot be analyzed.");
 
 
 folders[4].onclick = ()=>{
-show("decrypt");
+
+showScreen("decrypt");
+
 };
+
 
 
 
 
 /* PASSWORD */
 
-document.getElementById("unlock").onclick = ()=>{
+document
+.getElementById("unlock")
+.addEventListener("click",()=>{
 
-let code = document.getElementById("code").value
-.toUpperCase()
-.trim();
+
+let code =
+document.getElementById("code")
+.value
+.trim()
+.toUpperCase();
+
 
 
 if(code === "LUNA"){
 
-show("ai");
 
-type(
+showScreen("ai");
+
+
+typeWriter(
 document.getElementById("aiText"),
-"Analyzing memory fragments...\n\nSearching identity traces...\n\nPattern detected.\n\nL U N A"
+`Analyzing memory fragments...
+
+Searching identity traces...
+
+Pattern detected.
+
+L U N A`
 );
 
-}
 
-else{
+}else{
+
 
 alert("ACCESS DENIED");
 
+
 }
 
-};
+
+});
 
 
 
 
-/* AI → FINAL */
 
-document.getElementById("continueAI").onclick = ()=>{
 
-show("final");
+/* AI */
 
-type(
+document
+.getElementById("continueAI")
+.addEventListener("click",()=>{
+
+
+showScreen("final");
+
+
+typeWriter(
 document.getElementById("finalText"),
-"Mission Complete.\n\nPurpose: Make Luna smile.\n\nHappy Birthday."
+`Mission Complete.
+
+Purpose:
+Make Luna smile.
+
+Happy Birthday.`
 );
 
-};
+
+});
+
+
 
 
 
 
 /* GIFT */
 
-document.getElementById("gift").onclick = ()=>{
+document
+.getElementById("gift")
+.addEventListener("click",()=>{
 
-window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
-};
+window.location.href =
+"https://t.me/+cR5XiyZZUlQ1ZWFk";
+
+
+});
+
+
 
 
 
