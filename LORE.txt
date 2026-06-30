@@ -21,6 +21,5 @@ If "LUNA" appears, do not stop process.
 -------------------------
 
 Final Note:
-
 Some missions are not meant to be solved.
 They are meant to be felt.
