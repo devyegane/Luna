@@ -1,113 +1,93 @@
-const bootBtn=document.getElementById("bootBtn");
-const progress=document.getElementById("progress");
-const bgSound=document.getElementById("bgSound");
+const bootBtn = document.getElementById("bootBtn");
+const progress = document.getElementById("progress");
+const bgSound = document.getElementById("bgSound");
 
-const screens=document.querySelectorAll(".screen");
+const screens = document.querySelectorAll(".screen");
 
 function show(id){
-screens.forEach(s=>s.classList.remove("active"));
-document.getElementById(id).classList.add("active");
+    screens.forEach(s => s.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
 }
 
 function type(el,text,i=0){
-el.innerHTML="";
-let t=setInterval(()=>{
-el.innerHTML+=text[i];
-i++;
-if(i>=text.length) clearInterval(t);
-},30);
+    el.innerHTML="";
+    let t=setInterval(()=>{
+        el.innerHTML += text.charAt(i);
+        i++;
+        if(i>=text.length) clearInterval(t);
+    },30);
 }
+
 
 /* SOUND */
 function startSound(){
-if(bgSound){
-bgSound.volume=0.3;
-bgSound.play().catch(()=>{});
+    if(bgSound){
+        bgSound.volume = 0.3;
+        bgSound.play().catch(()=>{});
+    }
 }
-}
+
 
 /* BOOT */
 bootBtn.onclick=()=>{
-startSound();
-bootBtn.style.display="none";
 
-let p=0;
+    startSound();
 
-let load=setInterval(()=>{
+    bootBtn.style.display="none";
 
-p++;
+    let p=0;
 
-progress.style.width=p+"%";
+    let load=setInterval(()=>{
 
-if(p>=100){
+        p++;
+        progress.style.width=p+"%";
 
-clearInterval(load);
+        if(p>=100){
 
-setTimeout(()=>show("scan"),800);
+            clearInterval(load);
 
-}
-
-},30);
-
-};
-
-
-/* GLITCH */
-
-function glitchEffect(){
-
-document.body.classList.add("glitch");
-
-setTimeout(()=>{
-
-document.body.classList.remove("glitch");
-
-},400);
-
-}
-
-
-/* INTERFERENCE */
-
-function interferenceStage(){
-
-show("scan");
-
-type(
-document.getElementById("scanText"),
-`Signal unstable...
+            setTimeout(()=>{
+                show("scan");
+                type(
+                document.getElementById("scanText"),
+                `Signal unstable...
 
 Interference detected...
 
 Recalibrating system...`
-);
+                );
+            },800);
 
+        }
 
-setTimeout(()=>{
-
-document.getElementById("scanText").innerHTML+=
-`<br><br>Unknown signal pattern found.`;
-
-},3500);
-
-
-setTimeout(()=>{
-
-document.querySelectorAll(".next")[0].onclick();
-
-},7000);
-
-}
-
-
-/* SCAN */
-
-document.querySelectorAll(".next")[0].onclick=()=>{
-
-interferenceStage();
+    },30);
 
 };
 
+
+/* SCAN */
+document.querySelectorAll(".next")[0].onclick=()=>{
+
+    show("archive");
+
+    type(
+    document.getElementById("archiveText"),
+    `Scanning...
+
+Unknown archive detected...
+
+Recovering data...`
+    );
+
+
+    setTimeout(()=>{
+
+        document.getElementById("archiveText").innerHTML +=
+        `<br><br>Archive Age: 25 Years<br>Owner: UNKNOWN`;
+
+    },3000);
+
+};
 
 
 
@@ -115,81 +95,36 @@ interferenceStage();
 
 document.querySelectorAll(".next")[1].onclick=()=>{
 
-show("archive");
+    show("files");
 
-type(
-document.getElementById("archiveText"),
-`Scanning...
-
-Unknown archive detected...
-
-Recovering data...`
-);
+    const folders=document.querySelectorAll(".folder");
 
 
-setTimeout(()=>{
-
-document.getElementById("archiveText").innerHTML+=
-`<br>Archive Age: 25 Years<br>Owner: UNKNOWN`;
-
-},3000);
-
-};
+    folders[0].onclick=()=>{
+        alert("Memory_01\n\nSome memories never disappear.");
+    };
 
 
+    folders[1].onclick=()=>{
+        alert("Memory_02\n\nSomeone prepared something for today.");
+    };
 
 
-/* FILES */
-
-setTimeout(()=>{
-
-
-document.querySelectorAll(".next")[1].onclick=()=>{
+    folders[2].onclick=()=>{
+        alert("Memory_03\n\nLaughter detected.");
+    };
 
 
-show("files");
+    folders[3].onclick=()=>{
+        alert("Memory_04\n\nEmotional data cannot be analyzed.");
+    };
 
 
-document.querySelectorAll(".folder")[0].onclick=()=>{
-
-alert("Memory_01\n\nSome memories never disappear.");
+    folders[4].onclick=()=>{
+        show("decrypt");
+    };
 
 };
-
-
-document.querySelectorAll(".folder")[1].onclick=()=>{
-
-alert("Memory_02\n\nSomeone prepared something for today.");
-
-};
-
-
-document.querySelectorAll(".folder")[2].onclick=()=>{
-
-alert("Memory_03\n\nLaughter detected.");
-
-};
-
-
-document.querySelectorAll(".folder")[3].onclick=()=>{
-
-alert("Memory_04\n\nEmotional data cannot be analyzed.");
-
-};
-
-
-document.querySelectorAll(".folder")[4].onclick=()=>{
-
-show("decrypt");
-
-};
-
-
-};
-
-
-},500);
-
 
 
 
@@ -197,17 +132,18 @@ show("decrypt");
 
 document.getElementById("unlock").onclick=()=>{
 
-
-let code=document.getElementById("code").value.toUpperCase();
+let code=document.getElementById("code").value
+.toUpperCase()
+.trim();
 
 
 if(code==="LUNA"){
 
-nameEchoStage();
+    nameEchoStage();
 
 }else{
 
-alert("ACCESS DENIED");
+    alert("ACCESS DENIED");
 
 }
 
@@ -215,8 +151,7 @@ alert("ACCESS DENIED");
 
 
 
-
-/* NAME ECHO */
+/* AI */
 
 function nameEchoStage(){
 
@@ -233,21 +168,22 @@ Pattern detected.`
 );
 
 
-
 setTimeout(()=>{
 
-glitchEffect();
-
-
-document.getElementById("aiText").innerHTML+=
+document.getElementById("aiText").innerHTML +=
 `<br><br>L U N A`;
-
 
 },4500);
 
 
 
-setTimeout(()=>{
+}
+
+
+
+/* FINAL */
+
+document.getElementById("continueAI").onclick=()=>{
 
 show("final");
 
@@ -260,21 +196,6 @@ Purpose: Make Luna smile.
 
 Happy Birthday.`
 );
-
-
-},11000);
-
-
-}
-
-
-
-
-/* FINAL */
-
-document.getElementById("continueAI").onclick=()=>{
-
-show("final");
 
 };
 
