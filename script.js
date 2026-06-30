@@ -382,3 +382,6 @@ document
 window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
 });
+function openLore() {
+    window.open("LORE.txt", "_blank");
+}
