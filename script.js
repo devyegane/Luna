@@ -1,387 +1,301 @@
-const bootBtn = document.getElementById("bootBtn");
-const bootText = document.getElementById("bootText");
-const progress = document.getElementById("progress");
+const bootBtn=document.getElementById("bootBtn");
+const progress=document.getElementById("progress");
+const bgSound=document.getElementById("bgSound");
 
-const screens = document.querySelectorAll(".screen");
+const screens=document.querySelectorAll(".screen");
 
-
-function showScreen(id){
-
-screens.forEach(screen=>{
-screen.classList.remove("active");
-});
-
+function show(id){
+screens.forEach(s=>s.classList.remove("active"));
 document.getElementById(id).classList.add("active");
-
 }
 
-
-function typeWriter(element,text,speed=35){
-
-element.innerHTML="";
-
-let i=0;
-
-let timer=setInterval(()=>{
-
-element.innerHTML+=text.charAt(i);
-
+function type(el,text,i=0){
+el.innerHTML="";
+let t=setInterval(()=>{
+el.innerHTML+=text[i];
 i++;
-
-if(i>=text.length){
-clearInterval(timer);
+if(i>=text.length) clearInterval(t);
+},30);
 }
 
-},speed);
-
+/* SOUND */
+function startSound(){
+if(bgSound){
+bgSound.volume=0.3;
+bgSound.play().catch(()=>{});
+}
 }
 
-
-bootBtn.addEventListener("click",()=>{
-
+/* BOOT */
+bootBtn.onclick=()=>{
+startSound();
 bootBtn.style.display="none";
 
-bootSystem();
+let p=0;
 
-});
+let load=setInterval(()=>{
 
+p++;
 
-function bootSystem(){
+progress.style.width=p+"%";
 
-let value=0;
+if(p>=100){
 
-typeWriter(
-bootText,
-`Initializing A.S.T.R.A...
+clearInterval(load);
 
-Loading neural core...
-
-Please wait...`
-);
-
-
-let timer=setInterval(()=>{
-
-value++;
-
-progress.style.width=value+"%";
-
-if(value>=100){
-
-clearInterval(timer);
-
-setTimeout(scanStage,1000);
+setTimeout(()=>show("scan"),800);
 
 }
 
-},45);
+},30);
+
+};
+
+
+/* GLITCH */
+
+function glitchEffect(){
+
+document.body.classList.add("glitch");
+
+setTimeout(()=>{
+
+document.body.classList.remove("glitch");
+
+},400);
 
 }
 
 
+/* INTERFERENCE */
 
-function scanStage(){
+function interferenceStage(){
 
-showScreen("scan");
+show("scan");
 
-const scanText=document.getElementById("scanText");
+type(
+document.getElementById("scanText"),
+`Signal unstable...
 
+Interference detected...
 
-typeWriter(
-scanText,
-`Scanning system...
-
-Checking network...
-
-Checking local memory...
-
-Checking device clock...
-
-Checking encrypted storage...
-
-No threat detected.
-
-Searching archive...`
+Recalibrating system...`
 );
 
 
 setTimeout(()=>{
 
-scanText.innerHTML+=
+document.getElementById("scanText").innerHTML+=
+`<br><br>Unknown signal pattern found.`;
 
-`<br><br>UNKNOWN ARCHIVE DETECTED`;
-
-},8500);
-
-
-setTimeout(()=>{
-
-scanText.innerHTML+=
-
-`<br>Archive age : 25 Years`;
-
-},10500);
+},3500);
 
 
 setTimeout(()=>{
 
-scanText.innerHTML+=
+document.querySelectorAll(".next")[0].onclick();
 
-`<br>Owner : UNKNOWN`;
-
-},12200);
+},7000);
 
 }
 
 
+/* SCAN */
 
-const nextButtons=document.querySelectorAll(".next");
+document.querySelectorAll(".next")[0].onclick=()=>{
 
+interferenceStage();
 
-nextButtons.forEach(btn=>{
-
-btn.addEventListener("click",()=>{
-
-
-const current=document.querySelector(".screen.active");
-
-
-if(current.id==="scan"){
-
-archiveStage();
-
-}
-
-else if(current.id==="archive"){
-
-filesStage();
-
-}
-
-
-});
-
-});
+};
 
 
 
-function archiveStage(){
 
-showScreen("archive");
+/* ARCHIVE */
 
-const archiveText=document.getElementById("archiveText");
+document.querySelectorAll(".next")[1].onclick=()=>{
 
+show("archive");
 
-typeWriter(
-archiveText,
-`Permission Granted...
+type(
+document.getElementById("archiveText"),
+`Scanning...
 
-Recovering encrypted archive...
+Unknown archive detected...
 
-Please wait...`
+Recovering data...`
 );
 
 
 setTimeout(()=>{
 
-archiveText.innerHTML+=
+document.getElementById("archiveText").innerHTML+=
+`<br>Archive Age: 25 Years<br>Owner: UNKNOWN`;
 
-`<br><br>Decrypting memories...`;
+},3000);
 
-},4000);
+};
 
 
-setTimeout(()=>{
 
-archiveText.innerHTML+=
 
-`<br>12%`;
-
-},5200);
-
+/* FILES */
 
 setTimeout(()=>{
 
-archiveText.innerHTML+=
 
-`<br>38%`;
-
-},6500);
+document.querySelectorAll(".next")[1].onclick=()=>{
 
 
-setTimeout(()=>{
-
-archiveText.innerHTML+=
-
-`<br>61%`;
-
-},7700);
+show("files");
 
 
-setTimeout(()=>{
-
-archiveText.innerHTML+=
-
-`<br>89%`;
-
-},9000);
-
-
-setTimeout(()=>{
-
-archiveText.innerHTML+=
-
-`<br>100%<br>Recovery Complete`;
-
-},10500);
-
-}
-
-
-
-function filesStage(){
-
-showScreen("files");
-
-
-const folders=document.querySelectorAll(".folder");
-
-
-folders[0].onclick=function(){
+document.querySelectorAll(".folder")[0].onclick=()=>{
 
 alert("Memory_01\n\nSome memories never disappear.");
 
-}
+};
 
 
-folders[1].onclick=function(){
+document.querySelectorAll(".folder")[1].onclick=()=>{
 
 alert("Memory_02\n\nSomeone prepared something for today.");
 
-}
+};
 
 
-folders[2].onclick=function(){
+document.querySelectorAll(".folder")[2].onclick=()=>{
 
 alert("Memory_03\n\nLaughter detected.");
 
-}
+};
 
 
-folders[3].onclick=function(){
+document.querySelectorAll(".folder")[3].onclick=()=>{
 
 alert("Memory_04\n\nEmotional data cannot be analyzed.");
 
-}
+};
 
 
-folders[4].onclick=function(){
+document.querySelectorAll(".folder")[4].onclick=()=>{
 
-showScreen("decrypt");
+show("decrypt");
 
-}
-
-}
+};
 
 
-
-const unlock=document.getElementById("unlock");
-
-
-unlock.addEventListener("click",()=>{
+};
 
 
-const code=document
-.getElementById("code")
-.value
-.trim()
-.toUpperCase();
+},500);
+
+
+
+
+/* PASSWORD */
+
+document.getElementById("unlock").onclick=()=>{
+
+
+let code=document.getElementById("code").value.toUpperCase();
 
 
 if(code==="LUNA"){
 
-aiStage();
+nameEchoStage();
 
-}
-
-else{
+}else{
 
 alert("ACCESS DENIED");
 
 }
 
-
-});
-
+};
 
 
-function aiStage(){
-
-showScreen("ai");
-
-const aiText=document.getElementById("aiText");
 
 
-typeWriter(
-aiText,
-`Identity Restored...
+/* NAME ECHO */
 
-Name : Luna
+function nameEchoStage(){
 
-Analyzing archive...
+show("ai");
 
-Possible answer found.
 
-Friendship.
+type(
+document.getElementById("aiText"),
+`Analyzing memory fragments...
 
-Mission Objective Located.
+Searching identity traces...
 
-Make Luna Smile.`
+Pattern detected.`
 );
 
-}
+
+
+setTimeout(()=>{
+
+glitchEffect();
+
+
+document.getElementById("aiText").innerHTML+=
+`<br><br>L U N A`;
+
+
+},4500);
 
 
 
-document
-.getElementById("continueAI")
-.addEventListener("click",finalStage);
+setTimeout(()=>{
+
+show("final");
 
 
+type(
+document.getElementById("finalText"),
+`Mission Complete.
 
-function finalStage(){
+Purpose: Make Luna smile.
 
-showScreen("final");
-
-
-const finalText=document.getElementById("finalText");
-
-
-typeWriter(
-finalText,
-`Mission Completed.
-
-Three people requested today's mission.
-
-Their only request...
-
-was that you smile today.
-
-Happy Birthday, Luna.`
+Happy Birthday.`
 );
+
+
+},11000);
 
 
 }
 
 
 
-document
-.getElementById("gift")
-.addEventListener("click",()=>{
+
+/* FINAL */
+
+document.getElementById("continueAI").onclick=()=>{
+
+show("final");
+
+};
+
+
+
+
+/* GIFT */
+
+document.getElementById("gift").onclick=()=>{
 
 window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
-});
-function openLore() {
-    window.open("LORE.txt", "_blank");
+};
+
+
+
+
+/* LORE */
+
+function openLore(){
+
+window.open("LORE.txt","_blank");
+
 }
