@@ -9,29 +9,30 @@ function show(id){
     document.getElementById(id).classList.add("active");
 }
 
-function type(el,text,i=0){
+function type(el,text){
     el.innerHTML="";
-    let t=setInterval(()=>{
+    let i=0;
+
+    let timer=setInterval(()=>{
         el.innerHTML += text.charAt(i);
         i++;
-        if(i>=text.length) clearInterval(t);
+
+        if(i>=text.length){
+            clearInterval(timer);
+        }
+
     },30);
 }
 
 
-/* SOUND */
-function startSound(){
-    if(bgSound){
-        bgSound.volume = 0.3;
-        bgSound.play().catch(()=>{});
-    }
-}
-
-
 /* BOOT */
+
 bootBtn.onclick=()=>{
 
-    startSound();
+    if(bgSound){
+        bgSound.volume=0.3;
+        bgSound.play().catch(()=>{});
+    }
 
     bootBtn.style.display="none";
 
@@ -46,17 +47,12 @@ bootBtn.onclick=()=>{
 
             clearInterval(load);
 
-            setTimeout(()=>{
-                show("scan");
-                type(
-                document.getElementById("scanText"),
-                `Signal unstable...
+            show("scan");
 
-Interference detected...
-
-Recalibrating system...`
-                );
-            },800);
+            type(
+            document.getElementById("scanText"),
+            "Signal unstable...\n\nInterference detected...\n\nRecalibrating system..."
+            );
 
         }
 
@@ -65,29 +61,21 @@ Recalibrating system...`
 };
 
 
+
+
 /* SCAN */
+
 document.querySelectorAll(".next")[0].onclick=()=>{
 
-    show("archive");
+show("archive");
 
-    type(
-    document.getElementById("archiveText"),
-    `Scanning...
-
-Unknown archive detected...
-
-Recovering data...`
-    );
-
-
-    setTimeout(()=>{
-
-        document.getElementById("archiveText").innerHTML +=
-        `<br><br>Archive Age: 25 Years<br>Owner: UNKNOWN`;
-
-    },3000);
+type(
+document.getElementById("archiveText"),
+"Scanning...\n\nUnknown archive detected...\n\nRecovering data..."
+);
 
 };
+
 
 
 
@@ -95,36 +83,38 @@ Recovering data...`
 
 document.querySelectorAll(".next")[1].onclick=()=>{
 
-    show("files");
-
-    const folders=document.querySelectorAll(".folder");
-
-
-    folders[0].onclick=()=>{
-        alert("Memory_01\n\nSome memories never disappear.");
-    };
-
-
-    folders[1].onclick=()=>{
-        alert("Memory_02\n\nSomeone prepared something for today.");
-    };
-
-
-    folders[2].onclick=()=>{
-        alert("Memory_03\n\nLaughter detected.");
-    };
-
-
-    folders[3].onclick=()=>{
-        alert("Memory_04\n\nEmotional data cannot be analyzed.");
-    };
-
-
-    folders[4].onclick=()=>{
-        show("decrypt");
-    };
+show("files");
 
 };
+
+
+
+
+/* FILES */
+
+let folders=document.querySelectorAll(".folder");
+
+
+folders[0].onclick=()=>{
+alert("Memory_01\n\nSome memories never disappear.");
+};
+
+folders[1].onclick=()=>{
+alert("Memory_02\n\nSomeone prepared something for today.");
+};
+
+folders[2].onclick=()=>{
+alert("Memory_03\n\nLaughter detected.");
+};
+
+folders[3].onclick=()=>{
+alert("Memory_04\n\nEmotional data cannot be analyzed.");
+};
+
+folders[4].onclick=()=>{
+show("decrypt");
+};
+
 
 
 
@@ -136,48 +126,25 @@ let code=document.getElementById("code").value
 .toUpperCase()
 .trim();
 
-
 if(code==="LUNA"){
 
-    nameEchoStage();
+show("ai");
 
-}else{
+type(
+document.getElementById("aiText"),
+"Analyzing memory fragments...\n\nSearching identity traces...\n\nPattern detected.\n\nL U N A"
+);
 
-    alert("ACCESS DENIED");
+}
+
+else{
+
+alert("ACCESS DENIED");
 
 }
 
 };
 
-
-
-/* AI */
-
-function nameEchoStage(){
-
-show("ai");
-
-
-type(
-document.getElementById("aiText"),
-`Analyzing memory fragments...
-
-Searching identity traces...
-
-Pattern detected.`
-);
-
-
-setTimeout(()=>{
-
-document.getElementById("aiText").innerHTML +=
-`<br><br>L U N A`;
-
-},4500);
-
-
-
-}
 
 
 
@@ -187,14 +154,9 @@ document.getElementById("continueAI").onclick=()=>{
 
 show("final");
 
-
 type(
 document.getElementById("finalText"),
-`Mission Complete.
-
-Purpose: Make Luna smile.
-
-Happy Birthday.`
+"Mission Complete.\n\nPurpose: Make Luna smile.\n\nHappy Birthday."
 );
 
 };
@@ -212,8 +174,6 @@ window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
 
 
-
-/* LORE */
 
 function openLore(){
 
