@@ -1,153 +1,128 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LUNA GAME</title>
 
-<style>
-body{
-  margin:0;
-  background:black;
-  color:#d7e0ff;
-  font-family:monospace;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  height:100vh;
-}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-#app{
-  text-align:center;
-  width:90%;
-  max-width:500px;
-}
+<title>A.S.T.R.A</title>
 
-button{
-  margin-top:15px;
-  padding:12px;
-  border:1px solid #6ea8ff;
-  background:transparent;
-  color:#6ea8ff;
-  border-radius:10px;
-}
+<link rel="stylesheet" href="style.css">
 
-button:hover{
-  background:#6ea8ff22;
-}
-
-.big{
-  font-size:18px;
-}
-
-.hidden{
-  display:none;
-}
-
-.line{
-  white-space:pre-line;
-}
-</style>
 </head>
 
 <body>
 
 <div id="app">
 
-<div id="s1">
-<div class="big">UNKNOWN SIGNAL</div>
-<button onclick="start()">START</button>
+<section id="boot" class="screen active">
+
+<h1>A.S.T.R.A</h1>
+
+<h3>
+Artificial Synaptic Tracking &
+Reconstruction Assistant
+</h3>
+
+<div id="bootText"></div>
+
+<div id="progressBar">
+<div id="progress"></div>
 </div>
 
-<div id="s2" class="hidden">
-<div id="t1" class="line"></div>
-<button onclick="next1()">CONTINUE</button>
+<button id="bootBtn">
+INITIALIZE SYSTEM
+</button>
+
+</section>
+
+
+<section id="scan" class="screen">
+
+<h2>System Scan</h2>
+
+<div id="scanText"></div>
+
+<button class="next">
+Continue
+</button>
+
+</section>
+
+
+<section id="archive" class="screen">
+
+<h2>Unknown Archive</h2>
+
+<div id="archiveText"></div>
+
+<button class="next">
+Recover Archive
+</button>
+
+</section>
+
+
+<section id="files" class="screen">
+
+<h2>Recovered Files</h2>
+
+<div class="folder">📁 Memory_01</div>
+<div class="folder">📁 Memory_02</div>
+<div class="folder">📁 Memory_03</div>
+<div class="folder">📁 Memory_04</div>
+<div class="folder">📁 Locked_File</div>
+
+</section>
+
+
+<section id="decrypt" class="screen">
+
+<h2>Decrypt File</h2>
+
+<p>Enter Access Key</p>
+
+<input id="code" placeholder="ACCESS KEY">
+
+<button id="unlock">
+Unlock
+</button>
+
+</section>
+
+
+<section id="ai" class="screen">
+
+<h2>A.S.T.R.A</h2>
+
+<div id="aiText"></div>
+
+<button id="continueAI">
+Continue
+</button>
+
+</section>
+
+
+<section id="final" class="screen">
+
+<h1>
+MISSION COMPLETE
+</h1>
+
+<div id="finalText"></div>
+
+<button id="gift">
+🎁 OPEN GIFT
+</button>
+
+</section>
+
+
 </div>
 
-<div id="s3" class="hidden">
-<div id="t2" class="line"></div>
-<button onclick="next2()">NEXT</button>
-</div>
 
-<div id="s4" class="hidden">
-<input id="code" placeholder="ENTER CODE" style="padding:10px;text-align:center"/>
-<br/>
-<button onclick="check()">UNLOCK</button>
-</div>
-
-<div id="end" class="hidden">
-<div id="t3" class="line"></div>
-<button onclick="gift()">OPEN GIFT</button>
-</div>
-
-</div>
-
-
-<script>
-
-function type(el,text,i=0){
-if(i===0) el.innerHTML="";
-if(i<text.length){
-el.innerHTML+=text[i];
-setTimeout(()=>type(el,text,i+1),25);
-}
-}
-
-
-function start(){
-document.getElementById("s1").classList.add("hidden");
-document.getElementById("s2").classList.remove("hidden");
-
-type(
-document.getElementById("t1"),
-"system booting...\nsubject detected: LUNA"
-);
-}
-
-
-function next1(){
-document.getElementById("s2").classList.add("hidden");
-document.getElementById("s3").classList.remove("hidden");
-
-type(
-document.getElementById("t2"),
-"memory scan complete...\nsome things are stored in people, not systems"
-);
-}
-
-
-function next2(){
-document.getElementById("s3").classList.add("hidden");
-document.getElementById("s4").classList.remove("hidden");
-}
-
-
-function check(){
-
-let v=document.getElementById("code").value.toLowerCase().trim();
-
-if(v==="luna" || v==="smile" || v==="25" || v==="250630"){
-
-document.getElementById("s4").classList.add("hidden");
-document.getElementById("end").classList.remove("hidden");
-
-type(
-document.getElementById("t3"),
-"final result:\nthree people wanted to see you smile today\n\ncase closed."
-);
-
-}
-
-}
-
-
-function gift(){
-
-window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
-
-}
-
-</script>
+<script src="script.js"></script>
 
 </body>
 </html>
