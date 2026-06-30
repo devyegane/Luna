@@ -17,7 +17,7 @@ function type(el,text){
         el.innerHTML += text.charAt(i);
         i++;
 
-        if(i>=text.length){
+        if(i >= text.length){
             clearInterval(timer);
         }
 
@@ -27,10 +27,10 @@ function type(el,text){
 
 /* BOOT */
 
-bootBtn.onclick=()=>{
+bootBtn.onclick = ()=>{
 
     if(bgSound){
-        bgSound.volume=0.3;
+        bgSound.volume = 0.3;
         bgSound.play().catch(()=>{});
     }
 
@@ -62,56 +62,57 @@ bootBtn.onclick=()=>{
 
 
 
+/* SCAN → ARCHIVE */
 
-/* SCAN */
+document.querySelector("#scan .next").onclick = ()=>{
 
-document.querySelectorAll(".next")[0].onclick=()=>{
+    show("archive");
 
-show("archive");
-
-type(
-document.getElementById("archiveText"),
-"Scanning...\n\nUnknown archive detected...\n\nRecovering data..."
-);
-
-};
-
-
-
-
-/* ARCHIVE */
-
-document.querySelectorAll(".next")[1].onclick=()=>{
-
-show("files");
+    type(
+    document.getElementById("archiveText"),
+    "Scanning...\n\nUnknown archive detected...\n\nRecovering data..."
+    );
 
 };
 
+
+
+/* ARCHIVE → FILES */
+
+document.querySelector("#archive .next").onclick = ()=>{
+
+    show("files");
+
+};
 
 
 
 /* FILES */
 
-let folders=document.querySelectorAll(".folder");
+const folders = document.querySelectorAll(".folder");
 
 
-folders[0].onclick=()=>{
+folders[0].onclick = ()=>{
 alert("Memory_01\n\nSome memories never disappear.");
 };
 
-folders[1].onclick=()=>{
+
+folders[1].onclick = ()=>{
 alert("Memory_02\n\nSomeone prepared something for today.");
 };
 
-folders[2].onclick=()=>{
+
+folders[2].onclick = ()=>{
 alert("Memory_03\n\nLaughter detected.");
 };
 
-folders[3].onclick=()=>{
+
+folders[3].onclick = ()=>{
 alert("Memory_04\n\nEmotional data cannot be analyzed.");
 };
 
-folders[4].onclick=()=>{
+
+folders[4].onclick = ()=>{
 show("decrypt");
 };
 
@@ -120,13 +121,14 @@ show("decrypt");
 
 /* PASSWORD */
 
-document.getElementById("unlock").onclick=()=>{
+document.getElementById("unlock").onclick = ()=>{
 
-let code=document.getElementById("code").value
+let code = document.getElementById("code").value
 .toUpperCase()
 .trim();
 
-if(code==="LUNA"){
+
+if(code === "LUNA"){
 
 show("ai");
 
@@ -148,9 +150,9 @@ alert("ACCESS DENIED");
 
 
 
-/* FINAL */
+/* AI → FINAL */
 
-document.getElementById("continueAI").onclick=()=>{
+document.getElementById("continueAI").onclick = ()=>{
 
 show("final");
 
@@ -166,7 +168,7 @@ document.getElementById("finalText"),
 
 /* GIFT */
 
-document.getElementById("gift").onclick=()=>{
+document.getElementById("gift").onclick = ()=>{
 
 window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
@@ -174,6 +176,7 @@ window.location.href="https://t.me/+cR5XiyZZUlQ1ZWFk";
 
 
 
+/* LORE */
 
 function openLore(){
 
